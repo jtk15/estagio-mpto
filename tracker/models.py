@@ -1,3 +1,6 @@
 from django.db import models
 
-# Create your models here.
+
+class State(models.Model):
+    name = models.CharField('Nome', max_length=30, unique=True)
+    abreviattion = models.CharField('Sigla', max_length=2, unique=True)

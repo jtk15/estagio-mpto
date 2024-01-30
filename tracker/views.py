@@ -1,3 +1,22 @@
-from django.shortcuts import render
+from django.http import HttpResponse
 
-# Create your views here.
+from .models import State
+
+def state_index(request):
+
+    query = State.objects.all()
+
+    if query.exists():
+        
+        HttpResponse(status=200)
+    else:
+
+        return HttpResponse(status=404)
+
+    
+
+    return None
+
+def by_id(request):
+    
+    return render(request, '/home/dev/Documents/estagio-mpto/tracker/index.html')
