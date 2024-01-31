@@ -26,6 +26,28 @@ def state_list(request):
         
         return response 
 
+def state_list_by_id(request, id):
+
+    status=200
+    result = {}
+
+    try:
+ 
+        result = StateSerialiazer.serealizer(State.objects.get(id=id))
+
+    except State.DoesNotExist:
+
+        status = 404
+        result = {
+            'Menssage': f'Estado com a id {id} não existe'
+        }
+
+
+    return HttpResponse(
+        status=status,
+        content_type='application/json',
+        content=json.dumps(result)
+    )
 
 def state_create(request):
 
@@ -58,7 +80,6 @@ def state_create(request):
     return response
 
 
-
 def state_index(request):
 
     response = None
@@ -71,4 +92,21 @@ def state_index(request):
         
       response = state_create(request)
         
+    return response
+
+
+def state_by_id(request, id):
+
+    if request.method == 'GET':
+
+        response = state_list_by_id(request, id)
+    
+    if request.method == 'DELETE':
+        pass
+
+    if request.method == 'PUT':
+        pass 
+
+    
+
     return response

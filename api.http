@@ -13,3 +13,8 @@ Content-Type: application/json
     "name": "Santa Catarina",
     "abbreviation": "SC"
 }
+
+
+###
+# @name StateOne
+GET {{baseUrl}}/api/states/20
