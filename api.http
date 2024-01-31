@@ -17,4 +17,8 @@ Content-Type: application/json
 
 ###
 # @name StateOne
-GET {{baseUrl}}/api/states/20
+GET {{baseUrl}}/api/states/2
+
+###
+# @name StateDelete
+DELETE {{baseUrl}}/api/states/1

@@ -79,7 +79,6 @@ def state_create(request):
 
     return response
 
-
 def state_index(request):
 
     response = None
@@ -94,6 +93,43 @@ def state_index(request):
         
     return response
 
+def state_delete_by_id(request, id):
+    
+    status=200
+    result = {}
+
+    try:
+        state = State.objects.get(id=id)
+
+        state.delete()
+
+        result = {
+            'Mensage': 'Estado Excluido com sucessso'
+        }
+
+        status=204
+
+    except State.DoesNotExist:
+        
+        status=404
+        result = {
+            'Menssage': f'O Estado com a id {id} não existe'
+        }
+
+    except Exception as e:
+
+        status=400
+
+        result = {
+            'Mensage': str(e)
+        }
+    
+    return HttpResponse(
+        status=status,
+        content_type='application/json',
+        content=json.dumps(result)
+    )
+
 
 def state_by_id(request, id):
 
@@ -101,10 +137,11 @@ def state_by_id(request, id):
 
         response = state_list_by_id(request, id)
     
-    if request.method == 'DELETE':
-        pass
+    elif request.method == 'DELETE':
 
-    if request.method == 'PUT':
+        response = state_delete_by_id(request, id)
+
+    elif request.method == 'PUT':
         pass 
 
     
