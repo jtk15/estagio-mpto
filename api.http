@@ -3,3 +3,13 @@
 ###
 # @name AllStates
 GET {{baseUrl}}/api/states
+
+###
+# @name CreateState
+POST {{baseUrl}}/api/states/
+Content-Type: application/json
+
+{
+    "name": "Santa Catarina",
+    "abbreviation": "SC"
+}

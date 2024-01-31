@@ -1,13 +1,38 @@
+from tracker.models import State
+
+
 class BaseSerialization:
 
     _model = None
 
+    @classmethod
     def serealizer(self, instance):
 
-        raise NotImplemented('abstract class serealize not implemented')
+        return {
+            'pk': instance.pk,
+            'description': str(instance)
+        }
     
-     def deserealizer(self, instance):
+    @classmethod
+    def deserealizer(self, data):
 
-        raise NotImplemented('abstract class serealize not implemented')
+        return self._model(**data)
 
+
+class StateSerialiazer(BaseSerialization):
     
+    _model = State
+
+    @classmethod
+    def serealizer(self, instance):
+        
+        result = super().serealizer(instance)
+
+        result.update(
+            {
+                "Name": str(instance.name),
+                "Sigla": str(instance.abbreviation),
+            }
+        )
+
+        return result
