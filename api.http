@@ -22,3 +22,14 @@ GET {{baseUrl}}/api/states/2
 ###
 # @name StateDelete
 DELETE {{baseUrl}}/api/states/1
+
+
+###
+# @name StateUpdate
+PUT {{baseUrl}}/api/states/6
+Content-Type: application/json
+
+{
+    "name": "Para",
+    "abbreviation": "PA"
+}

@@ -1,7 +1,9 @@
 import json
+
 from django.http import HttpResponse
 from django.db import transaction
 from tracker.models import State
+
 from tracker.serealization import StateSerialiazer
 
 
@@ -26,6 +28,7 @@ def state_list(request):
         
         return response 
 
+
 def state_list_by_id(request, id):
 
     status=200
@@ -48,6 +51,7 @@ def state_list_by_id(request, id):
         content_type='application/json',
         content=json.dumps(result)
     )
+
 
 def state_create(request):
 
@@ -79,6 +83,7 @@ def state_create(request):
 
     return response
 
+
 def state_index(request):
 
     response = None
@@ -92,6 +97,7 @@ def state_index(request):
       response = state_create(request)
         
     return response
+
 
 def state_delete_by_id(request, id):
     
@@ -131,6 +137,47 @@ def state_delete_by_id(request, id):
     )
 
 
+def state_update_by_id(request, id):
+
+    status=200
+    result = {}
+
+    data = json.loads(request.body)
+
+    try:
+
+        with transaction.atomic():
+            state = State.objects.get(id=id)
+
+            for key, value in data.items():
+                setattr(state, key, value)
+
+            state.save()
+
+            result = StateSerialiazer.serealizer(state)
+        
+    except State.DoesNotExist:
+        
+        status=404
+        result = {
+            'Menssage': f'O Estado com a id {id} não existe'
+        }
+
+    except Exception as e:
+
+        status=400
+
+        result = {
+            'Mensage': str(e)
+        }
+
+    return HttpResponse(
+        status=status,
+        content_type='application/json',
+        content=json.dumps(result)
+    )
+
+
 def state_by_id(request, id):
 
     if request.method == 'GET':
@@ -142,8 +189,7 @@ def state_by_id(request, id):
         response = state_delete_by_id(request, id)
 
     elif request.method == 'PUT':
-        pass 
 
-    
+        response = state_update_by_id(request, id) 
 
     return response
