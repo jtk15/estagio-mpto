@@ -2,11 +2,14 @@ import json
 
 from django.http import HttpResponse
 from django.db import transaction
-from tracker.models import State
+from tracker.models import State, City
 
-from tracker.serealization import StateSerialiazer
+from tracker.serealization import StateSerializer, CitySerializer
+
+from helpers import restfy
 
 
+'''
 def state_list(request):
      
     query = State.objects.all()
@@ -193,3 +196,7 @@ def state_by_id(request, id):
         response = state_update_by_id(request, id) 
 
     return response
+
+'''
+city_index, city_by_id = restfy.make_rest(CitySerializer)
+state_index, state_by_id = restfy.make_rest(StateSerializer)
