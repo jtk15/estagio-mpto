@@ -1,0 +1,34 @@
+@baseUrl = http://127.0.0.1:8000
+
+###
+# @name AllCities
+GET {{baseUrl}}/api/cities
+
+###
+# @name CreateCity
+POST {{baseUrl}}/api/cities/
+Content-Type: application/json
+
+{
+    "name": "Lageado",
+    "state_id": 2
+}
+
+
+###
+# @name CityOne
+GET {{baseUrl}}/api/cities/6
+
+###
+# @name CityDelete
+DELETE {{baseUrl}}/api/cities/20
+
+
+###
+# @name StateUpdate
+PUT {{baseUrl}}/api/cities/30
+Content-Type: application/json
+
+{
+    "name": "Palmas"
+}

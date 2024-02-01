@@ -10,8 +10,8 @@ POST {{baseUrl}}/api/states/
 Content-Type: application/json
 
 {
-    "name": "Santa Catarina",
-    "abbreviation": "SC"
+    "name": "Pará",
+    "abbreviation": "PA"
 }
 
 
@@ -21,15 +21,14 @@ GET {{baseUrl}}/api/states/2
 
 ###
 # @name StateDelete
-DELETE {{baseUrl}}/api/states/1
-
+DELETE {{baseUrl}}/api/states/5
 
 ###
 # @name StateUpdate
-PUT {{baseUrl}}/api/states/6
+PUT {{baseUrl}}/api/states/2
 Content-Type: application/json
 
 {
-    "name": "Para",
-    "abbreviation": "PA"
+    "name": "Tocantins",
+    "abbreviation": "TO"
 }
