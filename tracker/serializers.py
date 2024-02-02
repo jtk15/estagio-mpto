@@ -1,16 +1,16 @@
-from helpers.baseSerialization import BaseSerialization
+from helpers.serealizer import BaseSerializer
 
 from tracker.models import State, City
 
 
-class StateSerializer(BaseSerialization):
+class StateSerializer(BaseSerializer):
     
     _model = State
 
     @classmethod
-    def serealizer(self, instance):
+    def encode(self, instance):
         
-        result = super().serealizer(instance)
+        result = super().encode(instance)
 
         result.update(
             {
@@ -22,18 +22,18 @@ class StateSerializer(BaseSerialization):
         return result
     
 
-class CitySerializer(BaseSerialization):
+class CitySerializer(BaseSerializer):
     
     _model = City
 
     @classmethod
-    def serealizer(self, instance):
+    def encode(self, instance):
         
-        result = super().serealizer(instance)
+        result = super().encode(instance)
 
         result.update(
             name=instance.name,
-            state=[StateSerializer.serealizer(instance.state)]
+            state=[StateSerializer.encode(instance.state)]
 
         )
 
