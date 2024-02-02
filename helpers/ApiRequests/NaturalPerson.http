@@ -1,0 +1,35 @@
+@baseUrl = http://127.0.0.1:8000
+
+###
+# @name AllNaturalpeople
+GET {{baseUrl}}/api/naturalpeople
+
+###
+# @name CreateNaturalPerson
+POST {{baseUrl}}/api/naturalpeople/
+Content-Type: application/json
+
+{
+    "name": "Joelton Porto Lima",
+    "cpf": "06480951182",
+    "city_id": 1
+}
+
+
+###
+# @name NaturalPersonOne
+GET {{baseUrl}}/api/naturalpeople/1
+
+###
+# @name NaturalPersonDelete
+DELETE {{baseUrl}}/api/naturalpeople/20
+
+
+###
+# @name StateUpdate
+PUT {{baseUrl}}/api/naturalpeople/30
+Content-Type: application/json
+
+{
+    "name": "Palmas"
+}

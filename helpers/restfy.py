@@ -98,8 +98,8 @@ def make_rest(Serializer):
             with transaction.atomic():
 
                 instance = Serializer.decode(data)
-                instance.save()
                 
+                instance.save()
                 response = HttpResponse(
                     status=201,
                     content_type='application/json',

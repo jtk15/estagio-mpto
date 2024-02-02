@@ -31,7 +31,7 @@ class Person(models.Model):
 
         abstract = True
         
-    def __str__(self) -> str:
+    def __str__(self):
         
         return f'{self.name}'
 
@@ -40,9 +40,9 @@ class NaturalPerson(Person):
     
     cpf = models.CharField('Cadastro de pessoa fisica', max_length=11, unique=True)
     
-    def __str__(self) -> str:
+    def __str__(self):
         
-        return f'{self.name} ({self.nome})'
+        return f'{self.name} ({self.cpf})'
 
 class LegalPerson(Person):
     

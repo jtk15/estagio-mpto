@@ -2,14 +2,14 @@
 
 ###
 # @name AllCities
-GET {{baseUrl}}/api/cities?filters=[{"property": "state_id", "value": 100, "stage": 1}]
+GET {{baseUrl}}/api/cities?filters=[{"property": "state_id", "value": 1, "stage": 1}]
 ###
 # @name CreateCity
 POST {{baseUrl}}/api/cities/
 Content-Type: application/json
 
 {
-    "name": "Florianopolis",
+    "name": "Miranorte",
     "state_id": 1
 }
 
