@@ -2,12 +2,91 @@ import json
 
 from django.http import HttpResponse
 from django.db import transaction
+from django.db.models import Q
 
 
 
 def make_rest(Serializer):
 
     Model = Serializer.Model()
+
+    def _do_filter(base_query, filter):
+
+        data = json.loads(filter) if filter else []
+        stages = {}
+
+        for expression in data:
+
+            stage_number = expression.get('stage', 1)
+            stage = stages.get(stage_number, [])
+
+            if stage_number >= 0:
+
+                stage.append(
+                    Q(**{
+                        expression.get('property'): expression.get('value')
+                    })
+                )
+            else:
+
+                 stage.append(
+                    ~Q(**{
+                        expression.get('property'): expression.get('value')
+                    })
+                )
+            stages.update({stage_number:stage}) 
+
+        sub_query = None
+        query = None
+       
+        for stage_number in stages.keys():
+           
+            expressions = stages.get(stage_number)
+
+            for expression in expressions:
+                if not sub_query:
+                    sub_query = expression
+                else:
+                    sub_query |= expression
+            if not query:
+                query = sub_query
+            else:
+                query &= sub_query
+        print(query)
+        return base_query.filter(query) if query else base_query
+
+
+    def _list(request):
+
+        status=200
+        result = []
+
+        try:
+
+            query = Model.objects.all()
+
+            query = _do_filter(query, request.GET.get('filters'))
+                
+            if query.exists():
+                
+                result = [Serializer.serealizer(instance) for instance in query]
+            else:
+
+                status=404
+
+        except Exception as e:
+            
+            status=400
+            result = {
+                "Err": str(e)
+            }
+           
+        return HttpResponse(
+            status=status,
+            content_type='application/json',
+            content=json.dumps(result)
+        ) 
+        
 
     def _create(request):
 
@@ -39,28 +118,6 @@ def make_rest(Serializer):
             )
 
         return response
-
-
-    def _list(request):
-
-        query = Model.objects.all()
-
-        if query.exists():
-            
-            response = HttpResponse(
-                content_type='application/json',
-                content=json.dumps([
-                    Serializer.serealizer(instance) for instance in query
-                ])
-                    
-            )
-
-            return response
-        else:
-            
-            response = HttpResponse(status=404)
-            
-            return response 
 
 
     def _list_one(request, id):

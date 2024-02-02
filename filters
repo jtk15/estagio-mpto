@@ -1,0 +1,5 @@
+[{"property": "state_id", "value": 5, "not": true}] -> negação traz todos os estado onde não e o cinco
+
+
+
+[{"property": "state_id", "value": 5, "stage": 1}, {"property": "state_id", "value": 2, "stage": 1}]
