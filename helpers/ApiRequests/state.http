@@ -10,8 +10,8 @@ POST {{baseUrl}}/api/states/
 Content-Type: application/json
 
 {
-    "name": "São Paulo",
-    "abbreviation": "SP"
+    "name": "Tocantins",
+    "abbreviation": "TO"
 }
 
 

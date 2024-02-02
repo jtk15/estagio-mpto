@@ -1,0 +1,35 @@
+@baseUrl = http://127.0.0.1:8000
+
+###
+# @name AllLegalPeople
+GET {{baseUrl}}/api/legalpeople
+
+###
+# @name CreateLegalPeople
+POST {{baseUrl}}/api/legalpeople/
+Content-Type: application/json
+
+{
+    "fantasy_name": "Quartetto Supermecados LTDA",
+    "cnpj": "02.397.343/0001-67",
+    "city_id": 1
+}
+
+
+###
+# @name LegalPeopleOne
+GET {{baseUrl}}/api/legalpeople/1
+
+###
+# @name LegalPeopleDelete
+DELETE {{baseUrl}}/api/legalpeople/20
+
+
+###
+# @name StateUpdate
+PUT {{baseUrl}}/api/legalpeople/30
+Content-Type: application/json
+
+{
+    "name": "Palmas"
+}

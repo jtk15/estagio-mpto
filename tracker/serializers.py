@@ -1,6 +1,6 @@
 from helpers.serealizer import BaseSerializer
 
-from tracker.models import State, City
+from tracker.models import LegalPerson, State, City
 
 
 class StateSerializer(BaseSerializer):
@@ -35,6 +35,44 @@ class CitySerializer(BaseSerializer):
             name=instance.name,
             state=[StateSerializer.encode(instance.state)]
 
+        )
+
+        return result
+
+
+class NaturalPersonSerializer(BaseSerializer):
+    
+    _model = LegalPerson
+    
+    @classmethod
+    def encode(self, instance):
+        
+        result = super().encode(instance)
+
+        result.update(
+            {
+                "Name": str(instance.name),
+                "city": CitySerializer.encode(instance.city)
+            }
+        )
+
+        return result
+    
+    
+class LegalPersonSerializer(BaseSerializer):
+    
+    _model = LegalPerson
+    
+    @classmethod
+    def encode(self, instance):
+        
+        result = super().encode(instance)
+
+        result.update(
+            {
+                "Fantasy Name": str(instance.fantasy_name),
+                "city": CitySerializer.encode(instance.city)
+            }
         )
 
         return result
