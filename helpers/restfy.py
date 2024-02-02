@@ -69,7 +69,7 @@ def make_rest(Serializer):
                 
             if query.exists():
                 
-                result = [Serializer.serealizer(instance) for instance in query]
+                result = [Serializer.encode(instance) for instance in query]
             else:
 
                 status=404
@@ -97,14 +97,14 @@ def make_rest(Serializer):
             
             with transaction.atomic():
 
-                instance = Serializer.deserealizer(data)
+                instance = Serializer.decode(data)
                 instance.save()
                 
                 response = HttpResponse(
                     status=201,
                     content_type='application/json',
                     content=json.dumps(
-                        Serializer.serealizer(instance)
+                        Serializer.encode(instance)
                     )
                 )
 
@@ -127,7 +127,7 @@ def make_rest(Serializer):
 
         try:
     
-            result = [Serializer.serealizer(Model.objects.get(id=id))]
+            result = [Serializer.encode(Model.objects.get(id=id))]
 
         except Model.DoesNotExist:
 
@@ -180,6 +180,7 @@ def make_rest(Serializer):
             content=json.dumps(result)
         )
 
+
     def _update(request, id):
         
         status=200
@@ -197,7 +198,7 @@ def make_rest(Serializer):
 
                 instance.save()
 
-                result = Serializer.serealizer(instance)
+                result = Serializer.encode(instance)
             
         except Model.DoesNotExist:
             
@@ -234,6 +235,7 @@ def make_rest(Serializer):
             response =  _create(request)
         
         return response
+
 
     def _by_id(request, id):
 

@@ -1,4 +1,4 @@
-class BaseSerialization:
+class BaseSerializer:
 
     _model = None
 
@@ -8,7 +8,7 @@ class BaseSerialization:
         return self._model
 
     @classmethod
-    def serealizer(self, instance):
+    def encode(self, instance):
 
         return {
             'pk': instance.pk,
@@ -16,6 +16,6 @@ class BaseSerialization:
         }
     
     @classmethod
-    def deserealizer(self, data):
+    def decode(self, data):
 
         return self._model(**data)
