@@ -1,7 +1,7 @@
 @baseUrl = http://127.0.0.1:8000
 
 ###
-# @name AllLegalPeople
+# @name All
 GET {{baseUrl}}/api/legalpeople
 
 ###
@@ -10,15 +10,15 @@ POST {{baseUrl}}/api/legalpeople/
 Content-Type: application/json
 
 {
-    "fantasy_name": "Quartetto Supermecados LTDA",
-    "cnpj": "02.397.343/0001-67",
-    "city_id": 1
+    "fantasy_name": "Pacific Security LTDA",
+    "cnpj": "21.326.021/0001-71",
+    "city_id": 12
 }
 
 
 ###
-# @name LegalPeopleOne
-GET {{baseUrl}}/api/legalpeople/1
+# @name One
+GET {{baseUrl}}/api/legalpeople/2
 
 ###
 # @name LegalPeopleDelete
@@ -26,10 +26,10 @@ DELETE {{baseUrl}}/api/legalpeople/20
 
 
 ###
-# @name StateUpdate
-PUT {{baseUrl}}/api/legalpeople/30
+# @name Update
+PUT {{baseUrl}}/api/legalpeople/5
 Content-Type: application/json
 
 {
-    "name": "Palmas"
+    "city_id": 11
 }

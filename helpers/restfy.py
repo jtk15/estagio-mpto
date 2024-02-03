@@ -1,12 +1,15 @@
 import json
 
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotAllowed
 from django.db import transaction
 from django.db.models import Q
 
 
 
-def make_rest(Serializer):
+def make_rest(
+    Serializer, allow_list=True,  allow_create=True, 
+    allow_list_by_id=True, allow_delete=True, allow_update=True
+):
 
     Model = Serializer.Model()
 
@@ -64,7 +67,7 @@ def make_rest(Serializer):
         try:
 
             query = Model.objects.all()
-
+           
             query = _do_filter(query, request.GET.get('filters'))
                 
             if query.exists():
@@ -226,30 +229,35 @@ def make_rest(Serializer):
 
         response = None
 
-        if request.method == 'GET':
+        if allow_list and request.method == 'GET':
 
            response =  _list(request)
     
-        if request.method == 'POST':
+        elif allow_create and request.method == 'POST':
 
             response =  _create(request)
         
+        else:
+            response = HttpResponseNotAllowed(['GET'])
+            
         return response
 
 
     def _by_id(request, id):
 
-        if request.method == 'GET':
+        if allow_list_by_id and request.method == 'GET':
 
             response = _list_one(request, id)
     
-        elif request.method == 'DELETE':
+        elif allow_delete and request.method == 'DELETE':
 
             response = _delete(request, id)
 
-        elif request.method == 'PUT':
+        elif allow_update and request.method == 'PUT':
 
             response = response = _update(request, id)
+        else:
+            response = HttpResponseNotAllowed(['GET'])
 
         return response
 

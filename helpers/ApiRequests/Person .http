@@ -1,0 +1,35 @@
+@baseUrl = http://127.0.0.1:8000
+
+###
+# @name All
+GET {{baseUrl}}/api/people/
+
+###
+# @name Create
+POST {{baseUrl}}/api/people/
+Content-Type: application/json
+
+{
+    "name": "Joelton Porto Lima",
+    "cpf": "06480951182",
+    "city_id": 1
+}
+
+
+###
+# @name One
+GET {{baseUrl}}/api/people/1
+
+###
+# @name Delete
+DELETE {{baseUrl}}/api/people/20
+
+
+###
+# @name StateUpdate
+PUT {{baseUrl}}/api/people/30
+Content-Type: application/json
+
+{
+    "name": "Palmas"
+}

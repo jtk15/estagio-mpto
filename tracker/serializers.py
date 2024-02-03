@@ -1,6 +1,6 @@
 from helpers.serealizer import BaseSerializer
 
-from tracker.models import LegalPerson, State, City
+from tracker.models import LegalPerson, NaturalPerson, Person, State, City
 
 
 class StateSerializer(BaseSerializer):
@@ -40,9 +40,13 @@ class CitySerializer(BaseSerializer):
         return result
 
 
+class PersonSerializer(BaseSerializer):
+    
+    _model = Person
+
 class NaturalPersonSerializer(BaseSerializer):
     
-    _model = LegalPerson
+    _model = NaturalPerson
     
     @classmethod
     def encode(self, instance):

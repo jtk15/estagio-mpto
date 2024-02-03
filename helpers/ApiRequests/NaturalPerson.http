@@ -1,35 +1,35 @@
 @baseUrl = http://127.0.0.1:8000
 
 ###
-# @name AllNaturalpeople
+# @name All
 GET {{baseUrl}}/api/naturalpeople
 
 ###
-# @name CreateNaturalPerson
+# @name Create
 POST {{baseUrl}}/api/naturalpeople/
 Content-Type: application/json
 
 {
-    "name": "Joelton Porto Lima",
-    "cpf": "06480951182",
-    "city_id": 1
+    "name": "Samela augusta rocha",
+    "cpf": "45684938492",
+    "city_id": 12
 }
 
 
 ###
-# @name NaturalPersonOne
-GET {{baseUrl}}/api/naturalpeople/1
+# @name One
+GET {{baseUrl}}/api/naturalpeople/2
 
 ###
-# @name NaturalPersonDelete
+# @name Delete
 DELETE {{baseUrl}}/api/naturalpeople/20
 
 
 ###
-# @name StateUpdate
-PUT {{baseUrl}}/api/naturalpeople/30
+# @name Update
+PUT {{baseUrl}}/api/naturalpeople/2
 Content-Type: application/json
 
 {
-    "name": "Palmas"
+    "city_id": 11
 }
