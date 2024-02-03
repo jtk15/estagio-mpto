@@ -5,7 +5,8 @@ from tracker.serializers import (
     PersonSerializer, 
     StateSerializer, 
     CitySerializer, 
-    NaturalPersonSerializer
+    NaturalPersonSerializer,
+    PackageContainerSerializer
 )
 
 
@@ -18,4 +19,5 @@ person_index, person_by_id = restfy.make_rest(
 
 natural_person_index, natural_person_by_id = restfy.make_rest(NaturalPersonSerializer)
 legal_person_index, legal_person_by_id = restfy.make_rest(LegalPersonSerializer)
+package_container_index, package_container_by_id = restfy.make_rest(PackageContainerSerializer)
 

@@ -1,12 +1,14 @@
 @baseUrl = http://127.0.0.1:8000
+@resource = packages
+
 
 ###
 # @name All
-GET {{baseUrl}}/api/states
+GET {{baseUrl}}/api/{{resource}}
 
 ###
 # @name Create
-POST {{baseUrl}}/api/states/
+POST {{baseUrl}}/api/{{resource}}/
 Content-Type: application/json
 
 {
@@ -17,15 +19,15 @@ Content-Type: application/json
 
 ###
 # @name One
-GET {{baseUrl}}/api/states/2
+GET {{baseUrl}}/api/{{resource}}/2
 
 ###
 # @name Delete
-DELETE {{baseUrl}}/api/states/5
+DELETE {{baseUrl}}/api/{{resource}}/5
 
 ###
 # @name Update
-PUT {{baseUrl}}/api/states/2
+PUT {{baseUrl}}/api/{{resource}}/2
 Content-Type: application/json
 
 {
