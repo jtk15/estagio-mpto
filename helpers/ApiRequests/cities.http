@@ -1,16 +1,16 @@
 @baseUrl = http://127.0.0.1:8000
 
 ###
-# @name AllCities
-GET {{baseUrl}}/api/cities?filters=[{"property": "state_id", "value": 1, "stage": 1}]
+# @name All
+GET {{baseUrl}}/api/cities
 ###
-# @name CreateCity
+# @name Create
 POST {{baseUrl}}/api/cities/
 Content-Type: application/json
 
 {
-    "name": "Miranorte",
-    "state_id": 1
+    "name": "Uberlandia",
+    "state_id": 8
 }
 
 
