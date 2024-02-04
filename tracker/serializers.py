@@ -1,6 +1,6 @@
 from helpers.serealizer import BaseSerializer
 
-from tracker.models import LegalPerson, NaturalPerson, Person, State, City
+from tracker.models import LegalPerson, LogTrace, NaturalPerson, PackageContainer, Person, State, City
 
 
 class StateSerializer(BaseSerializer):
@@ -43,6 +43,19 @@ class CitySerializer(BaseSerializer):
 class PersonSerializer(BaseSerializer):
     
     _model = Person
+    
+    @classmethod
+    def encode(self, instance):
+        
+        result = super().encode(instance)
+
+        result.update(
+            name=instance.name,
+            city = str(instance.city)
+        )
+
+        return result
+
 
 class NaturalPersonSerializer(BaseSerializer):
     
@@ -56,7 +69,7 @@ class NaturalPersonSerializer(BaseSerializer):
         result.update(
             {
                 "Name": str(instance.name),
-                "city": CitySerializer.encode(instance.city)
+                "city": CitySerializer.encode(instance.city),
             }
         )
 
@@ -80,3 +93,47 @@ class LegalPersonSerializer(BaseSerializer):
         )
 
         return result
+
+class PackageContainerSerializer(BaseSerializer):
+
+    _model = PackageContainer
+
+    @classmethod
+    def encode(self, instance):
+        result = super().encode(instance)
+
+        result.update(
+            sender=PersonSerializer.encode(instance.sender),
+            destination=PersonSerializer.encode(instance.destination),
+            sender_city=CitySerializer.encode(instance.sender_city),
+            destination_city=CitySerializer.encode(instance.destination_city),
+            weight=float(instance.weight),
+            volume=float(instance.volume),
+            create_at=str(instance.create_at),
+            unique_identify=instance.unique_identify,
+            delivery_state=instance.delivery_state,
+            delivery_state_display=instance.get_delivery_state_display()
+        )
+
+        return result
+    
+    
+class LogTraceSerializer(BaseSerializer):
+    
+    _model = LogTrace
+    
+    
+    @classmethod
+    def encode(self, instance):
+        
+        
+        result = super().encode(instance)
+        
+        result.update(
+            city=CitySerializer.encode(instance.city),
+            when=str(instance.when)
+        )
+    
+        
+        return result
+    

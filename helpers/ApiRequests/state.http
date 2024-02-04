@@ -10,8 +10,8 @@ POST {{baseUrl}}/api/states/
 Content-Type: application/json
 
 {
-    "name": "Minas gerais",
-    "abbreviation": "MG"
+    "name": "Acre",
+    "abbreviation": "AC"
 }
 
 

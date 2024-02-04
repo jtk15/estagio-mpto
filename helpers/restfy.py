@@ -12,7 +12,8 @@ def make_rest(
 ):
 
     Model = Serializer.Model()
-
+    
+        
     def _do_filter(base_query, filter):
 
         data = json.loads(filter) if filter else []
@@ -226,7 +227,7 @@ def make_rest(
 
 
     def _index(request):
-
+       
         response = None
 
         if allow_list and request.method == 'GET':
@@ -238,7 +239,11 @@ def make_rest(
             response =  _create(request)
         
         else:
-            response = HttpResponseNotAllowed(['GET'])
+            permite_method = []
+            allow_create and permite_method.append('CREATE')
+            allow_list and permite_method.append('GET')
+   
+            response = HttpResponseNotAllowed(permite_method)
             
         return response
 
@@ -257,7 +262,12 @@ def make_rest(
 
             response = response = _update(request, id)
         else:
-            response = HttpResponseNotAllowed(['GET'])
+            permite_method = []
+            allow_list_by_id and permite_method.append('GET')
+            allow_update and permite_method.append('PUT')
+            allow_delete and permite_method.append('DELETE')
+                
+            response = HttpResponseNotAllowed(permite_method)
 
         return response
 

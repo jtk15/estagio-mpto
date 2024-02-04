@@ -1,0 +1,62 @@
+@baseUrl = http://127.0.0.1:8000
+@resource = peckages
+
+
+###
+# @name All
+GET {{baseUrl}}/api/{{resource}}
+
+###
+# @name Create
+POST {{baseUrl}}/api/{{resource}}/
+Content-Type: application/json
+
+{
+    "sender_id": 2,
+    "destination_id": 1,
+    "sender_city_id": 1,
+    "destination_city_id": 8,
+    "weight": 3.50,
+    "volume": 100,
+    "create_at": "2024-02-03",
+    "delivery_state": 1,
+    "unique_identify": 123
+}
+
+
+###
+# @name One
+GET {{baseUrl}}/api/{{resource}}/2
+
+###
+# @name Delete
+DELETE {{baseUrl}}/api/{{resource}}/5
+
+###
+# @name Update
+PUT {{baseUrl}}/api/{{resource}}/2
+Content-Type: application/json
+
+{
+    "sender": 1,
+    "destination": 1,
+    "sender_city": 1,
+    "destination_city": 1,
+    "weight": 1,
+    "volume": 1,
+    "create_at": 1,
+    "delivery_state": 1
+}
+
+
+
+####Register Log
+
+### 
+# @name createRegisterLog
+POST {{baseUrl}}/api/{{resource}}/46a66257/log
+Content-Type: application/json
+
+{
+    "city_id": 1
+}
