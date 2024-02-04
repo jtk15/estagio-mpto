@@ -23,11 +23,25 @@ person_index, person_by_id = restfy.make_rest(
 
 natural_person_index, natural_person_by_id = restfy.make_rest(NaturalPersonSerializer)
 legal_person_index, legal_person_by_id = restfy.make_rest(LegalPersonSerializer)
-peckage_container_index, peckage_container_by_id = restfy.make_rest(PackageContainerSerializer)
+package_container_index, package_container_by_id = restfy.make_rest(PackageContainerSerializer)
 
 def package_container_log_trace_list(request, unique_identify):
-   
-   return HttpResponse(status=501)
+    
+    package_container = PackageContainer.objects.get(unique_identify=unique_identify)
+    
+    
+    content = {
+        'Package': PackageContainerSerializer.encode(package_container),
+        'LogTrace': [LogTraceSerializer.encode(log) for log in package_container.logs.all()]
+    }
+    
+    status=200
+    
+    return HttpResponse(
+        status=status,
+        content_type='application/json',
+        content=json.dumps(content)
+    )
 
 
 def package_container_log_trace_register(request, unique_identify):
@@ -39,14 +53,14 @@ def package_container_log_trace_register(request, unique_identify):
     
     try:
     
-        packege_container = PackageContainer.objects.get(unique_identify=unique_identify)
+        package_container = PackageContainer.objects.get(unique_identify=unique_identify)
         
         log_trace = LogTraceSerializer.decode(payload)
         
-        packege_container.logs.add(log_trace, bulk=False)
+        package_container.logs.add(log_trace, bulk=False)
         
         result = {
-            "packet_container": PackageContainerSerializer.encode(packege_container),
+            "packet_container": PackageContainerSerializer.encode(package_container),
             "log_trace": LogTraceSerializer.encode(log_trace),
         }
         

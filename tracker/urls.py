@@ -12,8 +12,8 @@ from .views import (
     legal_person_by_id,
     person_index, 
     person_by_id,
-    peckage_container_index,
-    peckage_container_by_id,
+    package_container_index,
+    package_container_by_id,
     package_container_log_trace
 )
 
@@ -37,7 +37,7 @@ urlpatterns = [
     path('people/', person_index),
     path('people/<int:id>', person_by_id),
     
-    path('peckages/', peckage_container_index),
-    path('peckages/<int:id>', peckage_container_by_id),
-     path('peckages/<str:unique_identify>/log', package_container_log_trace),
+    path('packages/', package_container_index),
+    path('packages/<int:id>', package_container_by_id),
+     path('packages/<str:unique_identify>/log', package_container_log_trace),
 ]
