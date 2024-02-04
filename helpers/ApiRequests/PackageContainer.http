@@ -1,5 +1,5 @@
 @baseUrl = http://127.0.0.1:8000
-@resource = peckages
+@resource = packages
 
 
 ###
@@ -58,5 +58,10 @@ POST {{baseUrl}}/api/{{resource}}/46a66257/log
 Content-Type: application/json
 
 {
-    "city_id": 1
+    "city_id": 2
 }
+
+###
+# @name LISTRegisterLog
+GET {{baseUrl}}/api/{{resource}}/46a66257/log
+Content-Type: application/json
