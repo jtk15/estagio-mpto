@@ -1,6 +1,6 @@
 from helpers.serealizer import BaseSerializer
 
-from tracker.models import LegalPerson, NaturalPerson, PackageContainer, Person, State, City
+from tracker.models import LegalPerson, LogTrace, NaturalPerson, PackageContainer, Person, State, City
 
 
 class StateSerializer(BaseSerializer):
@@ -44,7 +44,17 @@ class PersonSerializer(BaseSerializer):
     
     _model = Person
     
-   
+    @classmethod
+    def encode(self, instance):
+        
+        result = super().encode(instance)
+
+        result.update(
+            name=instance.name,
+            city = str(instance.city)
+        )
+
+        return result
 
 
 class NaturalPersonSerializer(BaseSerializer):
@@ -59,7 +69,7 @@ class NaturalPersonSerializer(BaseSerializer):
         result.update(
             {
                 "Name": str(instance.name),
-                "city": CitySerializer.encode(instance.city)
+                "city": CitySerializer.encode(instance.city),
             }
         )
 
@@ -106,3 +116,24 @@ class PackageContainerSerializer(BaseSerializer):
         )
 
         return result
+    
+    
+class LogTraceSerializer(BaseSerializer):
+    
+    _model = LogTrace
+    
+    
+    @classmethod
+    def encode(self, instance):
+        
+        
+        result = super().encode(instance)
+        
+        result.update(
+            city=CitySerializer.encode(instance.city),
+            when=str(instance.when)
+        )
+    
+        
+        return result
+    
